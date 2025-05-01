@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureScout - Website Security Scanner</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <div class="shield-icon"></div>
+        </div>
+        <h1>SecureScout</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#" class="active" data-section="scanner">Scanner</a></li>
+          <li><a href="#" data-section="history">History</a></li>
+          <li><a href="#" data-section="reports">Reports</a></li>
+          <li><a href="#" data-section="help">Help</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <span class="sr-only">Toggle Theme</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+      </button>
+    </header>
+
+    <main class="main-content">
+      <section class="scanner-section">
+        <div class="section-header">
+          <h2>Website Vulnerability Scanner</h2>
+          <p>Detect SQL injection and XSS vulnerabilities in your website</p>
+        </div>
+        
+        <div class="scan-form-container">
+          <form id="scanForm" class="scan-form">
+            <div class="input-group">
+              <label for="targetUrl">Target URL</label>
+              <div class="url-input-wrapper">
+                <input type="url" id="targetUrl" name="targetUrl" placeholder="https://example.com" required>
+                <div class="url-options">
+                  <button type="button" class="url-option" title="Advanced options">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="scan-options">
+              <div class="option-group">
+                <h3>Scan Options</h3>
+                <div class="checkbox-group">
+                  <div class="checkbox">
+                    <input type="checkbox" id="sqlInjection" name="vulnerabilities" value="sqlInjection" checked>
+                    <label for="sqlInjection">SQL Injection</label>
+                  </div>
+                  <div class="checkbox">
+                    <input type="checkbox" id="xss" name="vulnerabilities" value="xss" checked>
+                    <label for="xss">Cross-Site Scripting (XSS)</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="option-group">
+                <h3>Scan Depth</h3>
+                <div class="radio-group">
+                  <div class="radio">
+                    <input type="radio" id="quick" name="scanDepth" value="quick" checked>
+                    <label for="quick">Quick Scan</label>
+                  </div>
+                  <div class="radio">
+                    <input type="radio" id="deep" name="scanDepth" value="deep">
+                    <label for="deep">Deep Scan</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="startScanBtn">Start Scan</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="scan-status hidden" id="scanStatus">
+          <div class="scan-progress">
+            <div class="progress-header">
+              <h3>Scanning in progress</h3>
+              <span class="progress-percentage" id="progressPercentage">0%</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="scan-details">
+              <div class="scan-detail">
+                <span class="detail-label">Target:</span>
+                <span class="detail-value" id="scanTargetUrl">https://example.com</span>
+              </div>
+              <div class="scan-detail">
+                <span class="detail-label">Elapsed Time:</span>
+                <span class="detail-value" id="elapsedTime">00:00</span>
+              </div>
+              <div class="scan-detail">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value" id="scanCurrentStatus">Initializing scan...</span>
+              </div>
+            </div>
+            <button class="btn btn-danger" id="cancelScanBtn">Cancel Scan</button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- History Section -->
+      <section id="historySection" class="history-section hidden">
+        <div class="section-header">
+          <h2>Scan History</h2>
+          <div class="history-actions">
+            <button class="btn btn-outline" id="clearHistoryBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+              Clear History
+            </button>
+          </div>
+        </div>
+        
+        <div class="history-container">
+          <div id="scanHistoryList" class="history-list">
+            <!-- History items will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </section>
+      
+      <!-- Results Section -->
+      <section class="results-section hidden" id="resultsSection">
+        <div class="section-header">
+          <h2>Scan Results</h2>
+          <div class="result-actions">
+            <button class="btn btn-outline" id="exportResultsBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export
+            </button>
+            <button class="btn btn-outline" id="newScanBtn">New Scan</button>
+          </div>
+        </div>
+        
+        <div class="results-summary">
+          <div class="summary-card critical">
+            <div class="summary-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+            </div>
+            <div class="summary-details">
+              <h3>Critical</h3>
+              <span class="count" id="criticalCount">0</span>
+            </div>
+          </div>
+          
+          <div class="summary-card warning">
+            <div class="summary-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5a4.5 4.5 0 1 0 4.5 4.5M12 7.5A4.5 4.5 0 1 1 7.5 12M12 7.5V9m-4.5 3H9m7.5 0H18m-6 3v1.5m3.5-5.9 1.1 1.1m-7.2 0-1.1 1.1"></path></svg>
+            </div>
+            <div class="summary-details">
+              <h3>Warning</h3>
+              <span class="count" id="warningCount">0</span>
+            </div>
+          </div>
+          
+          <div class="summary-card info">
+            <div class="summary-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            </div>
+            <div class="summary-details">
+              <h3>Info</h3>
+              <span class="count" id="infoCount">0</span>
+            </div>
+          </div>
+          
+          <div class="summary-card secure">
+            <div class="summary-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 11 14 15 10"></path><circle cx="12" cy="12" r="10"></circle></svg>
+            </div>
+            <div class="summary-details">
+              <h3>Secure</h3>
+              <span class="count" id="secureCount">0</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="vulnerabilities-container" id="vulnerabilitiesContainer">
+          <!-- Vulnerability cards will be inserted here by JavaScript -->
+        </div>
+      </section>
+    </main>
+    
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 SecureScout. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Templates -->
+  <template id="vulnerabilityCardTemplate">
+    <div class="vulnerability-card">
+      <div class="vulnerability-header">
+        <div class="vulnerability-severity">
+          <span class="severity-badge"></span>
+        </div>
+        <h3 class="vulnerability-title"></h3>
+        <button class="expand-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+      </div>
+      <div class="vulnerability-content">
+        <div class="vulnerability-detail">
+          <span class="detail-label">Location:</span>
+          <span class="vulnerability-location"></span>
+        </div>
+        <div class="vulnerability-detail">
+          <span class="detail-label">Description:</span>
+          <p class="vulnerability-description"></p>
+        </div>
+        <div class="vulnerability-detail">
+          <span class="detail-label">Impact:</span>
+          <p class="vulnerability-impact"></p>
+        </div>
+        <div class="vulnerability-detail">
+          <span class="detail-label">Recommendation:</span>
+          <p class="vulnerability-recommendation"></p>
+        </div>
+        <div class="vulnerability-code">
+          <div class="code-header">
+            <span>Vulnerable Code</span>
+            <button class="copy-btn" title="Copy to clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+            </button>
+          </div>
+          <pre><code class="vulnerable-code"></code></pre>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/animations.js"></script>
+  <script src="scripts/results.js"></script>
+  <script src="scripts/scanner.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
